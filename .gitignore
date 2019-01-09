@@ -1,0 +1,7 @@
+*~
+*.pyc
+.cache/
+.vscode/
+to check later/
+__pycache__
+out.txt
