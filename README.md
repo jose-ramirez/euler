@@ -2,4 +2,4 @@
 
 This is a simple package I wrote to help me with the problems at [Project Euler](https://projecteuler.net/).
 
-Should put here how to use/install it, but that will come next time :)
+It should be installed locally to be able to run the problems in that project of mine.
