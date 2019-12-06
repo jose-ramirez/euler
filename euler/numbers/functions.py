@@ -1,17 +1,20 @@
 import functools as ft
 from fractions import gcd
 
+
 def p(n):
     """
         The nth pentagonal number.
     """
     return n * (3 * n - 1) // 2
 
-def t(n):    
+
+def t(n):
     """
         The nth triangular number.
     """
     return n * (n + 1) // 2
+
 
 def h(n):
     """
@@ -19,7 +22,8 @@ def h(n):
     """
     return n * (2 * n - 1)
 
-def power_sum(n, exp, b = 10):
+
+def power_sum(n, exp, b=10):
     """
         Returns the power sum of n, i.e., if n = abcd...
         in base b (here b defaults to 10), then
@@ -33,6 +37,7 @@ def power_sum(n, exp, b = 10):
         n /= b
     return total + n ** exp
 
+
 def factorial(n):
     """
         The very well known factorial function. Given n,
@@ -43,32 +48,34 @@ def factorial(n):
     else:
         return ft.reduce(lambda x, y: x * y, range(1, n + 1))
 
+
 def binom(n, k):
     """
         Calculates the binomial coefficient nCk.
     """
-    #que diferencia hay entre esto y [[0] * (k + 1)] * (n + 1)?:
-    m = [[0 for c in range (k + 1)]
-        for r in range(n + 1)]
+    # que diferencia hay entre esto y [[0] * (k + 1)] * (n + 1)?:
+    m = [[0 for c in range(k + 1)]
+         for r in range(n + 1)]
 
-    #init:
+    # init:
     for i in range(n + 1):
         for j in range(k + 1):
             if i == j or j == 0:
                 m[i][j] = 1
 
-    #calculating:
+    # calculating:
     for i in range(1, n + 1):
         for j in range(1, k + 1):
             m[i][j] = m[i - 1][j - 1] + m[i - 1][j]
     return m, m[n][k]
+
 
 def sum_up_to(n):
     """
         Returns the sum of all numbers up to n.
     """
     return n * (n + 1) // 2
-#print(sum_up_to(100))
+
 
 def fib(m):
     """
@@ -83,7 +90,7 @@ def fib(m):
         if f < m:
             l.append(f)
     return l
-#print(fib(20))
+
 
 def d(n):
     """
@@ -99,11 +106,13 @@ def d(n):
         i += 1
     return res
 
+
 def lcm(a, b):
     """
         Returns the lcm of two numbers.
     """
     return a * b // gcd(a, b)
+
 
 def order(a, n):
     """
@@ -124,29 +133,6 @@ def order(a, n):
             mod_exp = (a * mod_exp) % n
     return order
 
-def power_sum(n, exp, b = 10):
-    """
-        Returns the power sum of n, i.e., if n = abcd...
-        in base b (here b defaults to 10), then
-        power_sum(n, exp, b) returns sum{a^exp}, taking the
-        sum over all of n's digits.
-    """
-    total = 0
-    while n >= b:
-        d = n % b
-        total += d ** exp
-        n = n // b
-    return total + n ** exp
-
-def factorial(n):
-    """
-        The very well known factorial function. Given n,
-        returns n! for n >= 0.
-    """
-    if n == 0:
-        return 1
-    else:
-        return ft.reduce(lambda x, y: x * y, range(1, n + 1))
 
 def factorial_sum(n, factorial_list):
     """
@@ -157,5 +143,5 @@ def factorial_sum(n, factorial_list):
     while n >= 10:
         d = n % 10
         total += factorial_list[d]
-        n =  n // 10
+        n = n // 10
     return total + factorial_list[n]

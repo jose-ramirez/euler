@@ -1,45 +1,12 @@
 import math
 from fractions import gcd
 from operator import itemgetter
-from math import sin, cos, atan, sqrt
+from math import sin, cos, atan, sqrt, log
 import functools as ft
 import euler.numbers.functions as f
 
+
 class Utils:
-    def binom(self, n, k):
-        """
-            Calculates the binomial coefficient nCk.
-        """
-        #que diferencia hay entre esto y [[0] * (k + 1)] * (n + 1)?:
-        m = [[0 for c in range (k + 1)]
-            for r in range(n + 1)]
-
-        #init:
-        for i in range(n + 1):
-            for j in range(k + 1):
-                if i == j or j == 0:
-                    m[i][j] = 1
-
-        #calculating:
-        for i in range(1, n + 1):
-            for j in range(1, k + 1):
-                m[i][j] = m[i - 1][j - 1] + m[i - 1][j]
-        return m, m[n][k]
-
-    def fib(self, m):
-        """
-            Returns a list with all fibonacci numbers up to m.
-        """
-        l = []
-        l.append(0)
-        l.append(1)
-        f = 0
-        while f < m:
-            f = l[-1] + l[-2]
-            if f < m:
-                l.append(f)
-        return l
-
     def sieve(self, n=100):
         """
             Returns all primes less than n (if possible
@@ -57,7 +24,6 @@ class Utils:
                 sieve[i*i:n+1:i] = [False] * (m+1)
         sieve = [i for i in range(n+1) if sieve[i]]
         return sieve
-    #print(sieve(100))
 
     def is_palindrome(self, s):
         """
@@ -65,9 +31,9 @@ class Utils:
             without whitespaces) is palindrome.
         """
         return s == s[::-1]
-    #print(palindrome(str(998801)))
+    # print(palindrome(str(998801)))
 
-    def to_matrix(self, filename, separator = ' '):
+    def to_matrix(self, filename, separator=' '):
         """
             Returns a matrix from the contents
             of a file (we're assuming it's
@@ -77,8 +43,8 @@ class Utils:
             the data correctly.
         """
         f = open(filename, 'r')
-        return [list(map(self.f1, row.strip('\n').split(separator)) )
-            for row in f.readlines()]
+        return [list(map(self.f1, row.strip('\n').split(separator)))
+                for row in f.readlines()]
 
     def show(self, matrix):
         """
@@ -93,7 +59,7 @@ class Utils:
             have the same length:
         """
         print('%s\'s size: (%d, %d)'
-            %(name, len(matrix),len(matrix[0])))
+              % (name, len(matrix), len(matrix[0])))
 
     def to_number(self, filename):
         """
@@ -117,15 +83,26 @@ class Utils:
             i += 1
         return res
 
-    """
-        ... Still don't know if this is useful.
-    """
     def f1(self, char):
+        """
+            ... Still don't know if this is useful.
+        """
         if char == '-':
             return 0
         else:
             return int(char)
 
+    def log_factorial(self, n):
+        """
+            Returns ln(n!).
+        """
+        return sum([log(i) for i in range(1, n + 1)])
+
+    def log_nPr(self, n, r):
+        """
+            Returns ln(n! / (n - r)!).
+        """
+        return sum([log(i) for i in range(n - r + 1, n + 1)])
 
     def exp_mod(self, x, y, n):
         """
@@ -147,33 +124,33 @@ class Utils:
             index of val in data if val if found, else returns -1.
         """
 
-        #the indices we'll be using to narrow our search:
+        # the indices we'll be using to narrow our search:
         a, b = 0, len(data) - 1
 
-        #we need to have enough data to make the testing:
+        # we need to have enough data to make the testing:
         while b - a + 1 > 0:
-            
-            #update m to calculate the right address:
+
+            # update m to calculate the right address:
             m = b - a + 1
 
-            #our suspect might be here in this position:
+            # our suspect might be here in this position:
             pos = a + (m // 2)
 
-            #found it! return the original index:
+            # found it! return the original index:
             if data[pos] == val:
                 return pos
 
-            #might be on the left side of the array:
+            # might be on the left side of the array:
             elif data[pos] > val:
                 b = pos - 1
 
-            #might be on the right side:
+            # might be on the right side:
             else:
                 a = pos + 1
 
-        #here we also found nothing, since we ended up with a
-        #pair of indices that can't be interpreted as the
-        #extremes of an array:
+        # here we also found nothing, since we ended up with a
+        # pair of indices that can't be interpreted as the
+        # extremes of an array:
         return -1
 
     def parts(self, n):
@@ -182,24 +159,24 @@ class Utils:
             to Euler. Returns a list with all values of
             parts(k) for k up to n.
         """
-        #initial values for parts(n):
+        # initial values for parts(n):
         l = [1, 1, 2]
         i = 3
         for i in range(3, n + 1):
-            #initial values for the indices:
+            # initial values for the indices:
             k, k_ = 1, -1
             total = 0
             ind = 0
             a, a_, p_ = i - f.p(k), i - f.p(k_), (-1) ** ind
             indices_valid = a >= 0 or a_ >= 0
-            #calculate next value for partition function:
+            # calculate next value for partition function:
             while indices_valid:
                 total += p_ * (l[a] * (a >= 0) + l[a_] * (a_ >= 0))
-                #update indices:
+                # update indices:
                 k, k_, ind = k + 1, k_ - 1, ind + 1
                 a, a_, p_ = i - f.p(k), i - f.p(k_), (-1) ** ind
                 indices_valid = a >= 0 or a_ >= 0
-            #add value to list:
+            # add value to list:
             l.append(total)
         return l
 
@@ -226,26 +203,26 @@ class Utils:
                 break
         print(total)
 
-    #semiprimes(500000)
+    # semiprimes(500000)
 
     def divisors_dict(self, m, primes):
-      """
-          Dictionary with prime factors of m and its exponents:
-      """   
-      vals = {}
-      for p in primes:
-        if m == 1:
-          return vals
-        if m % p != 0:
-          continue
-        else:
-          m = m / p
-          total = 1
-          while m % p == 0:
-            total += 1
-            m = m / p
-          vals.update({str(p): total})
-      return vals
+        """
+            Dictionary with prime factors of m and its exponents:
+        """
+        vals = {}
+        for p in primes:
+            if m == 1:
+                return vals
+            if m % p != 0:
+                continue
+            else:
+                m = m / p
+                total = 1
+                while m % p == 0:
+                    total += 1
+                    m = m / p
+                vals.update({str(p): total})
+        return vals
 
     def mul(self, mat, vec):
         """
@@ -281,16 +258,9 @@ class Utils:
             m.append(self.sub(m1[i], m2[i]))
         return m
 
-    def solve_quadratic(self, a, b, c):
-        """
-            Solve the quadratic equation ax^2 + bx + c = 0.
-        """
-        d = sqrt((b ** 2) - (4 * a * c))
-        return (-b - d) / (2 * a), (-b + d) / (2 * a)
-
-### Some testing for the geometry functions:
-#multiply matrix and vector; result should equal [-1, 1]:
-#print mul([[0 , -1], [1, 0]], [1, 1])
+# Some testing for the geometry functions:
+# multiply matrix and vector; result should equal [-1, 1]:
+# print mul([[0 , -1], [1, 0]], [1, 1])
 #
-#subtract 2 matrices; should return [[0, 0], [0, 0]]:
-#print subm([[1, 0], [0, 1]], [[1, 0], [0, 1]])
+# subtract 2 matrices; should return [[0, 0], [0, 0]]:
+# print subm([[1, 0], [0, 1]], [[1, 0], [0, 1]])

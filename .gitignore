@@ -5,3 +5,6 @@
 to check later/
 __pycache__
 out.txt
+build/
+dist/
+euler.egg-info/

@@ -11,7 +11,7 @@ setuptools.setup(
     description="The library I've built over the years to help me with project euler's problems",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://github.com/jose-ramirez/project_euler",
+    url="https://github.com/jose-ramirez/euler",
     packages=['euler', 'euler.geom', 'euler.algebra', 'euler.numbers', 'euler.algorithms'],
     zip_safe=False,
     classifiers=[
