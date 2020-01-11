@@ -31,19 +31,16 @@ class Utils:
             without whitespaces) is palindrome.
         """
         return s == s[::-1]
-    # print(palindrome(str(998801)))
 
-    def to_matrix(self, filename, separator=' '):
+    def to_matrix(self, filename, separator=' ', null_value = '-'):
         """
-            Returns a matrix from the contents
-            of a file (we're assuming it's
+            Returns a matrix from the contents of a file (we're assuming it's
             possible anytime we call this function).
-            TODO: this needs to be fixed to be able to read
-            ALL the input files and returns a matrix with
-            the data correctly.
         """
-        f = open(filename, 'r')
-        return [list(map(self.f1, row.strip('\n').split(separator)))
+        def try_get_value(c):
+            return 0 if c == null_value else int(c)
+        with open(filename, 'r') as f:
+            return [[try_get_value(c) for c in row.strip('\n').split(separator)]
                 for row in f.readlines()]
 
     def show(self, matrix):
@@ -82,15 +79,6 @@ class Utils:
                     res -= 1
             i += 1
         return res
-
-    def f1(self, char):
-        """
-            ... Still don't know if this is useful.
-        """
-        if char == '-':
-            return 0
-        else:
-            return int(char)
 
     def log_factorial(self, n):
         """
@@ -179,31 +167,6 @@ class Utils:
             # add value to list:
             l.append(total)
         return l
-
-    def pi(self, n, prime_list):
-        """
-            Prime counting function. It depends on already having a
-            precomputed list of primes.
-        """
-        return bisect(prime_list, n) + 1
-
-    def semiprimes(self, n):
-        """
-            Counts all the semiprimes below n. Slows down as n
-            becomes larger. Haven't proved whether the output
-            is correct all the time or not:
-        """
-        p_l = self.sieve(n)
-        total = 0
-        for p in p_l:
-            if p < int(sqrt(n)) + 1:
-                total += self.pi(int(n / p), p_l) - \
-                    self.pi(p, p_l) + 1
-            else:
-                break
-        print(total)
-
-    # semiprimes(500000)
 
     def divisors_dict(self, m, primes):
         """
