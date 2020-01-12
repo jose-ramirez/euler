@@ -5,7 +5,6 @@ from math import sin, cos, atan, sqrt, log
 import functools as ft
 import euler.numbers.functions as f
 
-
 class Utils:
     def sieve(self, n=100):
         """
@@ -27,8 +26,7 @@ class Utils:
 
     def is_palindrome(self, s):
         """
-            Returns whether a word (assumed
-            without whitespaces) is palindrome.
+            Returns whether a string (assumed without whitespaces) is palindrome.
         """
         return s == s[::-1]
 
@@ -39,6 +37,7 @@ class Utils:
         """
         def try_get_value(c):
             return 0 if c == null_value else int(c)
+
         with open(filename, 'r') as f:
             return [[try_get_value(c) for c in row.strip('\n').split(separator)]
                 for row in f.readlines()]
@@ -50,35 +49,12 @@ class Utils:
         for row in range(len(matrix)):
             print(matrix[row])
 
-    def size(self, name, matrix):
-        """
-            Prints the matrix's dimensions, assuming all rows
-            have the same length:
-        """
-        print('%s\'s size: (%d, %d)'
-              % (name, len(matrix), len(matrix[0])))
-
     def to_number(self, filename):
         """
-            Returns a number representation of the number
-            in a file (it's assumed that it's decimal
-            representation is >= 100 digits).
+            Returns a number representation of the number in a file (it's
+            assumed that it's decimal representation is >= 100 digits).
         """
         return int(open(filename, 'r').readline())
-
-    def d(self, n):
-        """
-            Returns the number of divisors of n.
-        """
-        i = 1
-        res = 0
-        while i ** 2 <= n:
-            if n % i == 0:
-                res += 2
-                if n // i == i:
-                    res -= 1
-            i += 1
-        return res
 
     def log_factorial(self, n):
         """
@@ -108,8 +84,9 @@ class Utils:
     def chop(self, val, data):
         """
             Self made iterative binary search :)
-            It is assumed that data is an ordered list. returns the
-            index of val in data if val if found, else returns -1.
+
+            It is assumed that data is an ordered list. Returns the index of
+            val in data if val if found, else returns -1.
         """
 
         # the indices we'll be using to narrow our search:
@@ -143,9 +120,9 @@ class Utils:
 
     def parts(self, n):
         """
-            Partition function, according to a recurrence due
-            to Euler. Returns a list with all values of
-            parts(k) for k up to n.
+            Partition function, according to a recurrence due to Euler.
+
+            Returns a list with all values of parts(k) for k up to n.
         """
         # initial values for parts(n):
         l = [1, 1, 2]
@@ -186,44 +163,3 @@ class Utils:
                     m = m / p
                 vals.update({str(p): total})
         return vals
-
-    def mul(self, mat, vec):
-        """
-            Matrix and vector product.
-        """
-        res = []
-        rows = len(mat)
-        cols = len(mat[0])
-        for i in range(rows):
-            r = mat[i]
-            res.append(sum([r[k] * vec[k] for k in range(cols)]))
-        return res
-
-    def add(self, v1, v2):
-        """
-            Vector sum.
-        """
-        return [v1[k] + v2[k] for k in range(len(v1))]
-
-    def sub(self, v1, v2):
-        """
-            Vector difference.
-        """
-        return [v1[k] - v2[k] for k in range(len(v1))]
-
-    def subm(self, m1, m2):
-        """
-            Matrix deifference.
-        """
-        m = []
-        rows = len(m1)
-        for i in range(rows):
-            m.append(self.sub(m1[i], m2[i]))
-        return m
-
-# Some testing for the geometry functions:
-# multiply matrix and vector; result should equal [-1, 1]:
-# print mul([[0 , -1], [1, 0]], [1, 1])
-#
-# subtract 2 matrices; should return [[0, 0], [0, 0]]:
-# print subm([[1, 0], [0, 1]], [[1, 0], [0, 1]])
