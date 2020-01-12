@@ -22,6 +22,17 @@ def h(n):
     """
     return n * (2 * n - 1)
 
+def v(n, p):
+    """
+        Returns the max exponent of p in the prime factiorization of n!,
+        by Legendre's formula (https://en.wikipedia.org/wiki/Legendre%27s_formula).
+    """
+    total = 0
+    d = int(n / p)
+    while d != 0:
+        total += d
+        d = int(d / p)
+    return total
 
 def power_sum(n, exp, b=10):
     """
@@ -53,7 +64,7 @@ def binom(n, k):
     """
         Calculates the binomial coefficient nCk.
     """
-    # que diferencia hay entre esto y [[0] * (k + 1)] * (n + 1)?:
+    # what's the difference between this and [[0] * (k + 1)] * (n + 1)?:
     m = [[0 for c in range(k + 1)]
          for r in range(n + 1)]
 
@@ -116,10 +127,9 @@ def lcm(a, b):
 
 def order(a, n):
     """
-        Retorna order(a, n), el menor entero k que cumple
-        que a^k = 1 (mod n). Tiende a ser ineficiente a
-        medida que los valores crecen, pero cumple con su
-        objetivo si le das la oportunidad :)
+        Returns the least integer k such that a^k = 1 (mod n).It tends to be
+        inefficient as the values increase, but does its job if you give it
+        the chance :)
     """
     from fractions import gcd
     order = 0
@@ -136,8 +146,8 @@ def order(a, n):
 
 def factorial_sum(n, factorial_list):
     """
-        Given n = abcd...e returns sum{a!}, where the sum
-        is taken over all of n's digits.
+        Given n = abcd...e returns sum{a!}, where the sum is taken over all of
+        n's digits.
     """
     total = 0
     while n >= 10:
