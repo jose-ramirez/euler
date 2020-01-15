@@ -31,14 +31,14 @@ def test_rotate_line():
     assert close_enough(-1.0, m)
     assert close_enough(0, b)
 
-def test_rotate_line():
+def test_rotate_line_II():
     l1 = Line(1.0, 0)
     l2 = l1.rotate(Point([0.5, 0.5]), math.pi / 2)
     m, b = l2.m, l2.b
     assert close_enough(-1.0, m)
     assert close_enough(1.0, b)
 
-def test_rotate_line_2():
+def test_rotate_line_III():
     l1 = Line(-1.0, 1.0)
     l2 = l1.rotate(Point([0.5, 0.5]), math.pi / 2)
     m, b = l2.m, l2.b
