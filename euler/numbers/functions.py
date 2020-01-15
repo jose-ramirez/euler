@@ -1,5 +1,6 @@
 import functools as ft
 from fractions import gcd
+from euler import utils
 
 
 def p(n):
@@ -117,6 +118,35 @@ def d(n):
         i += 1
     return res
 
+def D(n):
+    """
+        Returns a list with the divisors of n.
+    """
+    l = []
+    i = 1
+    while i ** 2 <= n:
+        if n % i == 0:
+            l.append(i)
+            if n // i != i:
+                l.append(n // i)
+        i += 1
+    l.sort()
+    return l
+
+def phi(n):
+    """
+        Returns a list of Euler's totient function evaluated for 0 <= i <= n.
+    """
+    u = utils.Utils()
+    l = [0, 1]
+    for i in range(2, n + 1):
+        if u.is_prime(i):
+            l.append(i - 1)
+        else:
+            i_proper_divisors = D(i)[:-1]
+            prev_phis = [ l[m] for m in i_proper_divisors ]
+            l.append(i - sum(prev_phis))
+    return l
 
 def lcm(a, b):
     """

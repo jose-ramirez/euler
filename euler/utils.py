@@ -145,6 +145,12 @@ class Utils:
             l.append(total)
         return l
 
+    def is_prime(self, n):
+        """
+            Returns true iff n is prime. A rather inefficient implementation.
+        """
+        return all([n % i != 0 for i in range(2, int(sqrt(n) + 1))])
+
     def divisors_dict(self, m, primes):
         """
             Dictionary with prime factors of m and its exponents:
