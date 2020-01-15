@@ -20,11 +20,14 @@ class Ellipse:
         m, c = line.m, line.b
         a, b = self.a, self.b
         den = (a * m) ** 2 + b ** 2
-        d = a * b * math.sqrt(den - c ** 2)
-        x1 = (-a ** 2 * m * c + d) / den
-        x2 = (-a ** 2 * m * c - d) / den
-        points = [Point([x1, m * x1 + c]), Point([x2, m * x2 + c])]
-        return filter(lambda p: self.has_point, points)
+        if den >= c ** 2:
+            d = a * b * math.sqrt(den - c ** 2)
+            x1 = (-a ** 2 * m * c + d) / den
+            x2 = (-a ** 2 * m * c - d) / den
+            points = [Point([x1, m * x1 + c]), Point([x2, m * x2 + c])]
+            return [p for p in points if self.has_point(p)]
+        else:
+            return []
 
     def has_point(self, point):
         """
