@@ -24,6 +24,24 @@ class Utils:
         sieve = [i for i in range(n+1) if sieve[i]]
         return sieve
 
+    def sieve_set(self, n=100):
+        """
+            Returns all primes less than n (if possible
+            in a reasonable amount of time).
+            Taken from
+            http://code.activestate.com/recipes/577228-sieve-of-eratosthenes-python/
+        """
+        sqrtn = int(n**0.5)
+        sieve = [True] * (n+1)
+        sieve[0] = False
+        sieve[1] = False
+        for i in range(2, sqrtn+1):
+            if sieve[i]:
+                m = n//i - i
+                sieve[i*i:n+1:i] = [False] * (m+1)
+        sieve = {i for i in range(n+1) if sieve[i]}
+        return sieve
+
     def is_palindrome(self, s):
         """
             Returns whether a string (assumed without whitespaces) is palindrome.

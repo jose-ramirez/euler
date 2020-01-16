@@ -23,6 +23,16 @@ def test_is_prime():
     actual_prime = u.is_prime(31)
     assert(actual_prime == True)
 
+def test_sieve():
+    u = Utils()
+    primes = u.sieve(50)
+    assert(primes == [2,3,5,7,11,13,17,19,23,29,31,37,41,43,47])
+
+def test_sieve_set():
+    u = Utils()
+    primes = u.sieve_set(50)
+    assert(primes == set([2,3,5,7,11,13,17,19,23,29,31,37,41,43,47]))
+
 def test_is_prime_corner_cases():
     u = Utils()
     actual_prime = u.is_prime(2)
