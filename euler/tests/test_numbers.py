@@ -18,3 +18,6 @@ def test_Dn_prime_number():
 
 def test_phi():
     assert(f.phi(10) == [0, 1, 1, 2, 2, 4, 2, 6, 4, 6, 4])
+
+def test_phi_with_sieve():
+    assert(f.phi_with_sieve(10, set([2,3,5,7])) == [0, 1, 1, 2, 2, 4, 2, 6, 4, 6, 4])

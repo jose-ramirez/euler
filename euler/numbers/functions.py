@@ -148,6 +148,20 @@ def phi(n):
             l.append(i - sum(prev_phis))
     return l
 
+def phi_with_sieve(n, primes):
+    """
+        Returns a list of Euler's totient function evaluated for 0 <= i <= n.
+    """
+    l = [0, 1]
+    for i in range(2, n + 1):
+        if i in primes:
+            l.append(i - 1)
+        else:
+            i_proper_divisors = D(i)[:-1]
+            prev_phis = [ l[m] for m in i_proper_divisors ]
+            l.append(i - sum(prev_phis))
+    return l
+
 def lcm(a, b):
     """
         Returns the lcm of two numbers.
