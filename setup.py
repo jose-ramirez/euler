@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="euler",
-    version="0.2.6",
+    version="0.3.7",
     author="Jose Ramirez",
     author_email="a30673083@gmail.com",
     description="The library I've built over the years to help me with project euler's problems",
