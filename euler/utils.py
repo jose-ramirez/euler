@@ -1,5 +1,5 @@
 import math
-from fractions import gcd
+from math import gcd
 from operator import itemgetter
 from math import sin, cos, atan, sqrt, log
 import functools as ft

@@ -1,5 +1,5 @@
 import functools as ft
-from fractions import gcd
+from math import gcd
 from euler import utils
 
 
@@ -175,7 +175,7 @@ def order(a, n):
         inefficient as the values increase, but does its job if you give it
         the chance :)
     """
-    from fractions import gcd
+    from math import gcd
     order = 0
     if(gcd(a, n) > 1):
         return order
